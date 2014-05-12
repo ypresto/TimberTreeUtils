@@ -30,7 +30,7 @@ package net.ypresto.utils.timbertree;
  * Stacktrace recorder used by {@link net.ypresto.utils.timbertree.CrashlyticsTree}.
  */
 public class ErrorLogRecorder extends Throwable {
-    public ErrorLogRecorder(String detailMessage) {
+    ErrorLogRecorder(String detailMessage) {
         super(detailMessage);
     }
 }
