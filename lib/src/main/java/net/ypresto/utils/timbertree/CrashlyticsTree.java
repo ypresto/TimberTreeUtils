@@ -33,7 +33,7 @@ import timber.log.Timber;
 /**
  * An implementation of {@link Timber.Tree} which send reports to Crashlytics.
  * It reports log priority of error as non-fatal exception.
- * Also it will send custom log for
+ * Also send custom log for provided message.
  *
  * @author ypresto
  */
