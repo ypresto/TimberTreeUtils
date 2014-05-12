@@ -1,7 +1,7 @@
 TimberTreeUtils
 ===============
 
-Including [timber](https://github.com/JakeWharton/timber) tree for crashlytics, and debugging with forced crash.
+Includes [timber](https://github.com/JakeWharton/timber) tree for crashlytics, and debugging with forced crash.
 
 ## Trees
 
