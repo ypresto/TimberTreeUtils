@@ -1,17 +1,12 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    }
-    dependencies {
-        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
     }
 }
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 repositories {
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'http://download.crashlytics.com/maven' }
 }
 
