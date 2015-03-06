@@ -11,12 +11,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 18
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -36,6 +36,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.jakewharton.timber:timber:2.2.+'
+    compile 'com.jakewharton.timber:timber:2.2.2'
     compile 'com.crashlytics.android:crashlytics:1.+'
 }
