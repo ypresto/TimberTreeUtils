@@ -7,7 +7,7 @@ buildscript {
 apply plugin: 'com.android.library'
 
 repositories {
-    maven { url 'http://download.crashlytics.com/maven' }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -37,5 +37,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.jakewharton.timber:timber:2.2.2'
-    compile 'com.crashlytics.android:crashlytics:1.+'
+    compile 'com.crashlytics.sdk.android:crashlytics:2.2.4'
 }
