@@ -49,3 +49,7 @@ keystore.properties
 
 # Gradle
 .gradle
+*/build/
+build/
+gradle.properties
+.gradle/
