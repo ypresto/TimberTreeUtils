@@ -29,6 +29,7 @@ package net.ypresto.utils.timbertree;
 /**
  * Stacktrace recorder used by {@link net.ypresto.utils.timbertree.CrashlyticsTree}.
  */
+// TODO: remove trace lines for timber and this library.
 public class ErrorLogRecorder extends Throwable {
     ErrorLogRecorder(String detailMessage) {
         super(detailMessage);

@@ -26,6 +26,8 @@
  */
 package net.ypresto.utils.timbertree;
 
+import android.util.Log;
+
 import com.crashlytics.android.Crashlytics;
 
 import timber.log.Timber;
@@ -37,10 +39,79 @@ import timber.log.Timber;
  *
  * @author ypresto
  */
-public class CrashlyticsTree extends Timber.HollowTree {
+public class CrashlyticsTree implements Timber.Tree {
+    private final int mLogPriority;
+
+    /**
+     * Create instance with default log priority to record log to crashlytics.
+     * Default priority is ERROR.
+     */
     public CrashlyticsTree() {
+        this(Log.ERROR);
+    }
+
+    /**
+     * Create instance with minimum log priority to record log to crashlytics.
+     *
+     * @param failFastPriority Tree will throw error if priority of log is greater or equal than
+     *                         specified value. Expected to be one of constants from {@link Log}.
+     */
+    public CrashlyticsTree(int logPriority) {
         // Ensure crashlytics class is available, fail-fast if not available.
         Crashlytics.class.getCanonicalName();
+        mLogPriority = logPriority;
+    }
+
+    private void writeLog(int priority, String message) {
+        if (priority >= mLogPriority) {
+            Crashlytics.log(message);
+        }
+    }
+
+    private void writeLog(int priority, String message, Throwable throwable) {
+        if (priority >= mLogPriority) {
+            Crashlytics.log(message + '\n' + Log.getStackTraceString(throwable));
+        }
+    }
+
+    @Override
+    public void v(String message, Object... args) {
+        writeLog(Log.VERBOSE, message);
+    }
+
+    @Override
+    public void v(Throwable t, String message, Object... args) {
+        writeLog(Log.VERBOSE, message, t);
+    }
+
+    @Override
+    public void d(String message, Object... args) {
+        writeLog(Log.DEBUG, message);
+    }
+
+    @Override
+    public void d(Throwable t, String message, Object... args) {
+        writeLog(Log.DEBUG, message, t);
+    }
+
+    @Override
+    public void i(String message, Object... args) {
+        writeLog(Log.INFO, message);
+    }
+
+    @Override
+    public void i(Throwable t, String message, Object... args) {
+        writeLog(Log.INFO, message, t);
+    }
+
+    @Override
+    public void w(String message, Object... args) {
+        writeLog(Log.WARN, message);
+    }
+
+    @Override
+    public void w(Throwable t, String message, Object... args) {
+        writeLog(Log.WARN, message, t);
     }
 
     @Override
@@ -53,5 +124,4 @@ public class CrashlyticsTree extends Timber.HollowTree {
         Crashlytics.log(message);
         Crashlytics.logException(t);
     }
-
 }
