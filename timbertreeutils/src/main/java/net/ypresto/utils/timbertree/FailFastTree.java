@@ -57,62 +57,67 @@ public class FailFastTree implements Timber.Tree {
         mFailFastPriority = failFastPriority;
     }
 
-    private void assertPriority(int priority, Throwable t) {
-        if (priority >= mFailFastPriority) {
-            if (t != null)
+    private void assertPriority(int priority, Throwable t, String message) {
+        if (priority >= mFailFastPriority && !isExcludedMessage(message)) {
+            if (t != null) {
                 throw new LogPriorityExceededException(priority, mFailFastPriority, t);
-            else
+            } else {
                 throw new LogPriorityExceededException(priority, mFailFastPriority);
+            }
         }
+    }
+
+    private boolean isExcludedMessage(String message) {
+        return message.contains("NO_FAIL_FAST");
     }
 
     @Override
     public void v(String s, Object... objects) {
-        assertPriority(Log.VERBOSE, null);
+        assertPriority(Log.VERBOSE, null, s);
     }
 
     @Override
     public void v(Throwable throwable, String s, Object... objects) {
-        assertPriority(Log.VERBOSE, throwable);
+        assertPriority(Log.VERBOSE, throwable, s);
     }
 
     @Override
     public void d(String s, Object... objects) {
-        assertPriority(Log.DEBUG, null);
+        assertPriority(Log.DEBUG, null, s);
     }
 
     @Override
     public void d(Throwable throwable, String s, Object... objects) {
-        assertPriority(Log.DEBUG, throwable);
+        assertPriority(Log.DEBUG, throwable, s);
     }
 
     @Override
     public void i(String s, Object... objects) {
-        assertPriority(Log.INFO, null);
+        assertPriority(Log.INFO, null, s);
     }
 
     @Override
     public void i(Throwable throwable, String s, Object... objects) {
-        assertPriority(Log.INFO, throwable);
+        assertPriority(Log.INFO, throwable, s);
     }
 
     @Override
     public void w(String s, Object... objects) {
-        assertPriority(Log.WARN, null);
+        assertPriority(Log.WARN, null, s);
     }
 
     @Override
     public void w(Throwable throwable, String s, Object... objects) {
-        assertPriority(Log.WARN, throwable);
+        assertPriority(Log.WARN, throwable, s);
     }
 
     @Override
     public void e(String s, Object... objects) {
-        assertPriority(Log.ERROR, null);
+        assertPriority(Log.ERROR, null, s);
     }
 
     @Override
     public void e(Throwable throwable, String s, Object... objects) {
-        assertPriority(Log.ERROR, throwable);
+        assertPriority(Log.ERROR, throwable, s);
     }
 }
