@@ -1,23 +1,53 @@
 TimberTreeUtils
 ===============
 
-Includes [timber](https://github.com/JakeWharton/timber) tree for crashlytics, and debugging with forced crash.
+Set of [timber](https://github.com/JakeWharton/timber) trees for
+[Crashlytics](https://fabric.io/kits/android/crashlytics) and debugging.
 
-## Trees
 
-### CrashlyticsTree
+Trees
+----
 
-Send non-fatal exception report when `Timber.e()` is called (ONLY SEND REPORT instead of actual crash :) , be calm).
+### CrashlyticsLogExceptionTree (Default log level: ERROR)
 
-Requires Crashlytics Android SDK.
+Sends non-fatal exception to Crashlytics with `Crashlytics.logException()`.
+If no throwable is passed, it generates stack trace from caller of Timber.e() or etc.
 
-### FailFastTree
+### CrashlyticsLogTree (Default log level: WARN)
 
-Throws LogPriorityExceededException (extends RuntimeException) when Timber log method called which log priority exceeds specified one.
+Records log to Crashlytics with `Crashlytics.log()`.
+Recorded logs will be shown in each Crashes/Non-Fatals report.
 
-Useful when dog feeding, debug or quality assuarance. DON'T plant() this on production environment.
+### FailFastTree (Default log level: ERROR)
 
-### LICENSE
+Throws LogPriorityExceededError (extends Error) if log level exceeds specified level.
+
+Useful when dogfooding, debugging, quality assurance. DON'T plant() this on production environment.
+
+
+Filtering logs
+----
+
+### Specifying minimum log level
+
+```
+CrashlyticsLogTree tree = new CrashlyticsLogTree(Log.INFO);
+```
+
+### Excluding log by custom logic
+
+```
+FailFastTree tree = new FailFastTree(Log.ERROR, new LogExclusionStrategy() {
+    @Override
+    public boolean shouldSkipLog(int priority, String tag, String message, Throwable t) {
+        return message.startsWith("NO_FAIL_FAST");
+    }
+});
+```
+
+
+LICENSE
+----
 
 ```
 Copyright (C) 2015 Yuya Tanaka
