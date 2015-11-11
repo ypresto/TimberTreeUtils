@@ -11,14 +11,17 @@ Trees
 ### CrashlyticsLogExceptionTree (Default log level: ERROR)
 
 Sends non-fatal exception to Crashlytics with `Crashlytics.logException()`.
+
 If no throwable is passed, it generates stack trace from caller of Timber.e() or etc.
+NOTE: Stack trace elements of timber code are automatically removed before sent.
 
 ### CrashlyticsLogTree (Default log level: WARN)
 
 Records log to Crashlytics with `Crashlytics.log()`.
+
 Recorded logs will be shown in each Crashes/Non-Fatals report.
 
-### FailFastTree (Default log level: ERROR)
+### ThrowErrorTree (Default log level: ERROR)
 
 Throws LogPriorityExceededError (extends Error) if log level exceeds specified level.
 
@@ -30,14 +33,14 @@ Filtering logs
 
 ### Specifying minimum log level
 
-```
+```java
 CrashlyticsLogTree tree = new CrashlyticsLogTree(Log.INFO);
 ```
 
 ### Excluding log by custom logic
 
-```
-FailFastTree tree = new FailFastTree(Log.ERROR, new LogExclusionStrategy() {
+```java
+ThrowErrorTree tree = new ThrowErrorTree(Log.ERROR, new LogExclusionStrategy() {
     @Override
     public boolean shouldSkipLog(int priority, String tag, String message, Throwable t) {
         return message.startsWith("NO_FAIL_FAST");
