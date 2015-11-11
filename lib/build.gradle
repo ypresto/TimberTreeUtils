@@ -36,6 +36,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.jakewharton.timber:timber:4.1.0'
-    compile 'com.crashlytics.sdk.android:crashlytics:2.2.4'
+    compile 'com.jakewharton.timber:timber:4.0.0'
+    provided 'com.crashlytics.sdk.android:crashlytics:2.2.4'
 }
