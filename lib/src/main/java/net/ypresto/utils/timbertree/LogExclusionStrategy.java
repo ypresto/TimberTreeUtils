@@ -1,6 +1,6 @@
 package net.ypresto.utils.timbertree;
 
-public interface ExclusionStrategy {
+public interface LogExclusionStrategy {
     /**
      * @param priority Log priority.
      * @param tag      Tag for log.

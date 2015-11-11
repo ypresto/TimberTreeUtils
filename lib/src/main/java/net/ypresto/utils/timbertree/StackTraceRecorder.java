@@ -18,7 +18,7 @@ class StackTraceRecorder extends Throwable {
     @Override
     public Throwable fillInStackTrace() {
         super.fillInStackTrace();
-        StackTraceElement[] original= getStackTrace();
+        StackTraceElement[] original = getStackTrace();
         Iterator<StackTraceElement> iterator = Arrays.asList(original).iterator();
         List<StackTraceElement> filtered = new ArrayList<>();
 

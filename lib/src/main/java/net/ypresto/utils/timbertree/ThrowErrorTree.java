@@ -12,7 +12,7 @@ import timber.log.Timber;
  */
 public class ThrowErrorTree extends Timber.Tree {
     private final int mLogPriority;
-    private final ExclusionStrategy mExclusionStrategy;
+    private final LogExclusionStrategy mLogExclusionStrategy;
 
     /**
      * Create instance with default log priority of ERROR.
@@ -25,16 +25,16 @@ public class ThrowErrorTree extends Timber.Tree {
      * @param logPriority Minimum log priority to throw error. Expects one of constants defined in {@link Log}.
      */
     public ThrowErrorTree(int logPriority) {
-        this(logPriority, NullExclusionStrategy.INSTANCE);
+        this(logPriority, NullLogExclusionStrategy.INSTANCE);
     }
 
     /**
-     * @param logPriority       Minimum log priority to throw error. Expects one of constants defined in {@link Log}.
-     * @param exclusionStrategy Strategy used to skip throwing error.
+     * @param logPriority          Minimum log priority to throw error. Expects one of constants defined in {@link Log}.
+     * @param logExclusionStrategy Strategy used to skip throwing error.
      */
-    public ThrowErrorTree(int logPriority, ExclusionStrategy exclusionStrategy) {
+    public ThrowErrorTree(int logPriority, LogExclusionStrategy logExclusionStrategy) {
         mLogPriority = logPriority;
-        mExclusionStrategy = exclusionStrategy;
+        mLogExclusionStrategy = logExclusionStrategy;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ThrowErrorTree extends Timber.Tree {
 
     @Override
     protected void log(int priority, String tag, String message, Throwable t) {
-        if (mExclusionStrategy.shouldSkipForLog(priority, tag, message, t)) {
+        if (mLogExclusionStrategy.shouldSkipForLog(priority, tag, message, t)) {
             return;
         }
 

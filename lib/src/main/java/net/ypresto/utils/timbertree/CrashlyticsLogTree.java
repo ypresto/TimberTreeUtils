@@ -14,7 +14,7 @@ import timber.log.Timber;
  */
 public class CrashlyticsLogTree extends Timber.Tree {
     private final int mLogPriority;
-    private final ExclusionStrategy mExclusionStrategy;
+    private final LogExclusionStrategy mLogExclusionStrategy;
 
     /**
      * Create instance with default log priority of WARN.
@@ -27,18 +27,18 @@ public class CrashlyticsLogTree extends Timber.Tree {
      * @param logPriority Minimum log priority to send log. Expects one of constants defined in {@link Log}.
      */
     public CrashlyticsLogTree(int logPriority) {
-        this(logPriority, NullExclusionStrategy.INSTANCE);
+        this(logPriority, NullLogExclusionStrategy.INSTANCE);
     }
 
     /**
-     * @param logPriority       Minimum log priority to send log. Expects one of constants defined in {@link Log}.
-     * @param exclusionStrategy Strategy used to skip logging.
+     * @param logPriority          Minimum log priority to send log. Expects one of constants defined in {@link Log}.
+     * @param logExclusionStrategy Strategy used to skip logging.
      */
-    public CrashlyticsLogTree(int logPriority, ExclusionStrategy exclusionStrategy) {
+    public CrashlyticsLogTree(int logPriority, LogExclusionStrategy logExclusionStrategy) {
         // Ensure crashlytics class is available, fail-fast if not available.
         Crashlytics.class.getCanonicalName();
         mLogPriority = logPriority;
-        mExclusionStrategy = exclusionStrategy;
+        mLogExclusionStrategy = logExclusionStrategy;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CrashlyticsLogTree extends Timber.Tree {
 
     @Override
     protected void log(int priority, String tag, String message, Throwable t) {
-        if (mExclusionStrategy.shouldSkipForLog(priority, tag, message, t)) {
+        if (mLogExclusionStrategy.shouldSkipForLog(priority, tag, message, t)) {
             return;
         }
 
