@@ -13,38 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.ypresto.utils.timbertree;
+package net.ypresto.timbertreeutils;
 
 import android.util.Log;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
-public class ThrowErrorTreeTest {
+public class CrashlyticsLogTreeTest {
     @Test
     public void testIsLoggable() throws Exception {
-        ThrowErrorTree tree = new ThrowErrorTree();
-        assertTrue(tree.isLoggable(Log.ERROR));
-        assertFalse(tree.isLoggable(Log.WARN));
+        CrashlyticsLogTree tree = new CrashlyticsLogTree();
+        assertTrue(tree.isLoggable(Log.WARN));
+        assertFalse(tree.isLoggable(Log.INFO));
 
-        tree = new ThrowErrorTree(Log.INFO);
+        tree = new CrashlyticsLogTree(Log.INFO);
         assertTrue(tree.isLoggable(Log.INFO));
         assertFalse(tree.isLoggable(Log.DEBUG));
     }
 
-    @Test
-    public void testLog() throws Exception {
-        ThrowErrorTree tree = new ThrowErrorTree();
-        Throwable testThrowable = new Throwable("test");
-        try {
-            tree.log(Log.INFO, "tag", "message", testThrowable);
-            fail("Expected LogPriorityExceededError");
-        } catch (LogPriorityExceededError e) {
-            assertEquals(testThrowable, e.getCause());
-        }
-    }
+    // TODO: Test on Crashlytics static method
 }

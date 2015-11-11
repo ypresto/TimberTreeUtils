@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.ypresto.utils.timbertree;
+package net.ypresto.timbertreeutils;
 
 class NullLogExclusionStrategy implements LogExclusionStrategy {
     static final NullLogExclusionStrategy INSTANCE = new NullLogExclusionStrategy();

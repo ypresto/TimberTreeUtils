@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.ypresto.utils.timbertree;
+package net.ypresto.timbertreeutils;
 
 import android.util.Log;
 
@@ -22,14 +22,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class CrashlyticsLogTreeTest {
+public class CrashlyticsLogExceptionTreeTest {
     @Test
     public void testIsLoggable() throws Exception {
-        CrashlyticsLogTree tree = new CrashlyticsLogTree();
-        assertTrue(tree.isLoggable(Log.WARN));
-        assertFalse(tree.isLoggable(Log.INFO));
+        CrashlyticsLogExceptionTree tree = new CrashlyticsLogExceptionTree();
+        assertTrue(tree.isLoggable(Log.ERROR));
+        assertFalse(tree.isLoggable(Log.WARN));
 
-        tree = new CrashlyticsLogTree(Log.INFO);
+        tree = new CrashlyticsLogExceptionTree(Log.INFO);
         assertTrue(tree.isLoggable(Log.INFO));
         assertFalse(tree.isLoggable(Log.DEBUG));
     }

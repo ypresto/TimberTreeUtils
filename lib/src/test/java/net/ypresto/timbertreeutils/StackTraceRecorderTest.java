@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.ypresto.utils.timbertree;
+package net.ypresto.timbertreeutils;
 
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class StackTraceRecorderTest {
         Timber.e("hoge");
         StackTraceRecorder stackTraceRecorder = stackTraceRecorderArray[0];
         assertNotNull(stackTraceRecorder);
-        assertEquals("net.ypresto.utils.timbertree.StackTraceRecorderTest", stackTraceRecorder.getStackTrace()[0].getClassName());
+        assertEquals("net.ypresto.timbertreeutils.StackTraceRecorderTest", stackTraceRecorder.getStackTrace()[0].getClassName());
         assertEquals("testFillInStackTrace", stackTraceRecorder.getStackTrace()[0].getMethodName());
     }
 

@@ -13,41 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.ypresto.utils.timbertree;
+package net.ypresto.timbertreeutils;
 
 import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
 
 import timber.log.Timber;
 
 /**
- * An implementation of {@link Timber.Tree} which throws {@link java.lang.Error} when priority of
- * log is exceeded the limit. Useful for development or test environment.
+ * An implementation of {@link Timber.Tree} which sends log to Crashlytics.
  *
  * @author ypresto
+ * @see CrashlyticsLogExceptionTree
  */
-public class ThrowErrorTree extends Timber.Tree {
+public class CrashlyticsLogTree extends Timber.Tree {
     private final int mLogPriority;
     private final LogExclusionStrategy mLogExclusionStrategy;
 
     /**
-     * Create instance with default log priority of ERROR.
+     * Create instance with default log priority of WARN.
      */
-    public ThrowErrorTree() {
-        this(Log.ERROR);
+    public CrashlyticsLogTree() {
+        this(Log.WARN);
     }
 
     /**
-     * @param logPriority Minimum log priority to throw error. Expects one of constants defined in {@link Log}.
+     * @param logPriority Minimum log priority to send log. Expects one of constants defined in {@link Log}.
      */
-    public ThrowErrorTree(int logPriority) {
+    public CrashlyticsLogTree(int logPriority) {
         this(logPriority, null);
     }
 
     /**
-     * @param logPriority          Minimum log priority to throw error. Expects one of constants defined in {@link Log}.
-     * @param logExclusionStrategy Strategy used to skip throwing error.
+     * @param logPriority          Minimum log priority to send log. Expects one of constants defined in {@link Log}.
+     * @param logExclusionStrategy Strategy used to skip logging.
      */
-    public ThrowErrorTree(int logPriority, LogExclusionStrategy logExclusionStrategy) {
+    public CrashlyticsLogTree(int logPriority, LogExclusionStrategy logExclusionStrategy) {
+        // Ensure crashlytics class is available, fail-fast if not available.
+        Crashlytics.class.getCanonicalName();
         mLogPriority = logPriority;
         mLogExclusionStrategy = logExclusionStrategy != null ? logExclusionStrategy : NullLogExclusionStrategy.INSTANCE;
     }
@@ -63,11 +67,7 @@ public class ThrowErrorTree extends Timber.Tree {
             return;
         }
 
-        if (t != null) {
-            throw new LogPriorityExceededError(priority, mLogPriority, t);
-        } else {
-            throw new LogPriorityExceededError(priority, mLogPriority);
-        }
+        String messageWithTag = "[" + tag + "] " + message;
+        Crashlytics.log(messageWithTag);
     }
-
 }
