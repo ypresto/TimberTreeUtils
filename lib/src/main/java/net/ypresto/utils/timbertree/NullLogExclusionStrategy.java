@@ -7,7 +7,7 @@ class NullLogExclusionStrategy implements LogExclusionStrategy {
     }
 
     @Override
-    public boolean shouldSkipForLog(int priority, String tag, String message, Throwable t) {
+    public boolean shouldSkipLog(int priority, String tag, String message, Throwable t) {
         return false;
     }
 }

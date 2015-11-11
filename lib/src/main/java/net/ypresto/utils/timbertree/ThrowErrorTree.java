@@ -44,7 +44,7 @@ public class ThrowErrorTree extends Timber.Tree {
 
     @Override
     protected void log(int priority, String tag, String message, Throwable t) {
-        if (mLogExclusionStrategy.shouldSkipForLog(priority, tag, message, t)) {
+        if (mLogExclusionStrategy.shouldSkipLog(priority, tag, message, t)) {
             return;
         }
 
