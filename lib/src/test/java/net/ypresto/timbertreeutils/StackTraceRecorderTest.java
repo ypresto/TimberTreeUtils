@@ -15,6 +15,7 @@
  */
 package net.ypresto.timbertreeutils;
 
+import org.junit.After;
 import org.junit.Test;
 
 import timber.log.Timber;
@@ -23,10 +24,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class StackTraceRecorderTest {
+    private TestRecorderTree mTestRecorderTree;
+
+    @After
+    public void tearDown() throws Exception {
+        if (mTestRecorderTree != null) {
+            Timber.uproot(mTestRecorderTree);
+        }
+    }
+
     @Test
     public void testFillInStackTrace() throws Exception {
         final StackTraceRecorder[] stackTraceRecorderArray = new StackTraceRecorder[1];
-        Timber.plant(new TestRecorderTree(stackTraceRecorderArray));
+        mTestRecorderTree = new TestRecorderTree(stackTraceRecorderArray);
+        Timber.plant(mTestRecorderTree);
         Timber.e("hoge");
         StackTraceRecorder stackTraceRecorder = stackTraceRecorderArray[0];
         assertNotNull(stackTraceRecorder);
