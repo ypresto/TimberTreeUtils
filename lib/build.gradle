@@ -2,9 +2,13 @@ buildscript {
     repositories {
         jcenter()
     }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -40,4 +44,14 @@ dependencies {
     provided 'com.crashlytics.sdk.android:crashlytics:2.2.4'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
+}
+
+publish {
+    groupId = 'net.ypresto.timbertreeutils'
+    artifactId = 'timbertreeutils'
+    version = '1.0.0-SNAPSHOT'
+    licences = ['Apache-2.0']
+    website = 'https://github.com/ypresto/TimberTreeUtils'
+    autoPublish = false
+    dryRun = false
 }

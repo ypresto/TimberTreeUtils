@@ -46,6 +46,20 @@ FailFastTree tree = new FailFastTree(Log.ERROR, new LogExclusionStrategy() {
 ```
 
 
+Installation
+----
+
+Available from jCenter.
+
+Gradle:
+
+```groovy
+dependencies {
+    compile 'net.ypresto.timbertreeutils:timbertreeutils:1.0.0'
+}
+```
+
+
 LICENSE
 ----
 
