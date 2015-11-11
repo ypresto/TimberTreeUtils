@@ -67,7 +67,7 @@ public class CrashlyticsLogTree extends Timber.Tree {
             return;
         }
 
-        String messageWithTag = "[" + tag + "] " + message;
+        String messageWithTag = tag != null ? "[" + tag + "] " + message : message;
         Crashlytics.log(messageWithTag);
     }
 }
