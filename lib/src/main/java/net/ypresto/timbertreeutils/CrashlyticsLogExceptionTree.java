@@ -70,8 +70,8 @@ public class CrashlyticsLogExceptionTree extends Timber.Tree {
         if (t != null) {
             Crashlytics.logException(t);
         } else {
-            String messageWithTag = tag != null ? "[" + tag + "] " + message : message;
-            Crashlytics.logException(new StackTraceRecorder(messageWithTag));
+            String formattedMessage = LogMessageHelper.format(priority, tag, message);
+            Crashlytics.logException(new StackTraceRecorder(formattedMessage));
         }
     }
 }
