@@ -27,7 +27,7 @@ public class CrashlyticsLogTree extends Timber.Tree {
      * @param logPriority Minimum log priority to send log. Expects one of constants defined in {@link Log}.
      */
     public CrashlyticsLogTree(int logPriority) {
-        this(logPriority, NullLogExclusionStrategy.INSTANCE);
+        this(logPriority, null);
     }
 
     /**
@@ -38,7 +38,7 @@ public class CrashlyticsLogTree extends Timber.Tree {
         // Ensure crashlytics class is available, fail-fast if not available.
         Crashlytics.class.getCanonicalName();
         mLogPriority = logPriority;
-        mLogExclusionStrategy = logExclusionStrategy;
+        mLogExclusionStrategy = logExclusionStrategy != null ? logExclusionStrategy : NullLogExclusionStrategy.INSTANCE;
     }
 
     @Override

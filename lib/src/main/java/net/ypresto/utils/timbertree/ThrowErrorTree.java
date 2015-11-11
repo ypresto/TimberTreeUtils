@@ -25,7 +25,7 @@ public class ThrowErrorTree extends Timber.Tree {
      * @param logPriority Minimum log priority to throw error. Expects one of constants defined in {@link Log}.
      */
     public ThrowErrorTree(int logPriority) {
-        this(logPriority, NullLogExclusionStrategy.INSTANCE);
+        this(logPriority, null);
     }
 
     /**
@@ -34,7 +34,7 @@ public class ThrowErrorTree extends Timber.Tree {
      */
     public ThrowErrorTree(int logPriority, LogExclusionStrategy logExclusionStrategy) {
         mLogPriority = logPriority;
-        mLogExclusionStrategy = logExclusionStrategy;
+        mLogExclusionStrategy = logExclusionStrategy != null ? logExclusionStrategy : NullLogExclusionStrategy.INSTANCE;
     }
 
     @Override
