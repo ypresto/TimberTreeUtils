@@ -5,6 +5,16 @@ Set of [timber](https://github.com/JakeWharton/timber) trees for
 [Crashlytics](https://fabric.io/kits/android/crashlytics) and debugging.
 
 
+Usage
+----
+
+This library only contains `Timber.Tree` implementations. Just plant it to Timber.
+
+```java
+Timber.plant(new CrashlyticsLogExceptionTree())
+```
+
+
 Trees
 ----
 
